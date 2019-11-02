@@ -1,8 +1,10 @@
 require('./config/config');
 
 const express = require('express');
-const app = express();
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+
+const app = express();
 
 
 
@@ -12,27 +14,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-app.get('/usuario', (req, res) => {
-    res.json('get Usuario');
-});
+//importa el controlador de las rutas
+app.use(require('./controllers/usuario'));
 
-app.post('/usuario', (req, res) => {
-    let body = req.body;
-    res.json({
-        persona: body
+
+// conexion a la BD
+mongoose.connect(process.env.URL_BASEDATOS, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+    (err, res) => {
+        if (err) throw err;
+        console.log('Base de datos conectada');
     });
-});
 
-app.put('/usuario/:id', (req, res) => {
-    let id = req.params.id;
-    res.json({
-        id: id
-    });
-});
 
-app.delete('/usuario', (req, res) => {
-    res.json('delete Usuario');
-});
 
 app.listen(process.env.PORT, () => {
     console.log('Escuchando puerto', process.env.PORT);
