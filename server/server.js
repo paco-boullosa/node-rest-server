@@ -14,8 +14,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-//importa el controlador de las rutas
-app.use(require('./controllers/usuario'));
+//configuracion global de rutas (controladores)
+app.use(require('./controllers/index'));
+
 
 
 // conexion a la BD

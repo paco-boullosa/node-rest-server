@@ -4,12 +4,21 @@
 // si el PORT está configurado por el servidor (como en  Heroku) se usa ese valor. En otro caso se inicializa a 3000
 process.env.PORT = process.env.PORT || 3000;
 
-
 // ==========================
 // ENTORNO
 // ==========================
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
+// ==========================
+// Expiracion del token
+// ==========================
+// expira en 60s * 60m * 24h * 30 == 30 dias
+process.env.TOKEN_CADUCIDAD = 60 * 60 * 24 * 30;
+
+// ==========================
+// SEED del token
+// ==========================
+process.env.TOKEN_SEED = process.env.TOKEN_SEED || 'semilla-de-desarrollo';
 
 // ==========================
 // BASE DE DATOS

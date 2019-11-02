@@ -5,11 +5,14 @@ const _ = require('underscore');
 
 const Usuario = require('../models/usuario');
 
+const { verificaToken, validaAdminRole } = require('../middlewares/autenticacion');
+
 const app = express();
 
 
 
-app.get('/usuario', (req, res) => {
+app.get('/usuario', verificaToken, (req, res) => {
+    //verificaToken es un middleware que se usa dentro.
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -41,7 +44,7 @@ app.get('/usuario', (req, res) => {
 
 
 
-app.post('/usuario', (req, res) => {
+app.post('/usuario', [verificaToken, validaAdminRole], (req, res) => {
     let body = req.body;
 
     usuario = new Usuario({
@@ -68,7 +71,7 @@ app.post('/usuario', (req, res) => {
 
 
 
-app.put('/usuario/:id', (req, res) => {
+app.put('/usuario/:id', [verificaToken, validaAdminRole], (req, res) => {
     let id = req.params.id;
     //let body = req.body;   ---> en vez de tomar todos los valores del body se filtran solo los que se pueden actualizar con PUT. Para ello se utiliza _.pick
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
@@ -91,7 +94,7 @@ app.put('/usuario/:id', (req, res) => {
 });
 
 
-app.delete('/usuario/:id', (req, res) => {
+app.delete('/usuario/:id', [verificaToken, validaAdminRole], (req, res) => {
     let id = req.params.id;
     //borrado FISICO del registro
     /*
