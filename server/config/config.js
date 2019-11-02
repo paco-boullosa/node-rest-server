@@ -18,6 +18,10 @@ let urlDB;
 if (process.env.NODE_ENV === 'dev') {
     urlDB = 'mongodb://localhost:27017/cafe';
 } else {
-    urlDB = 'mongodb+srv://pacomongo:PW1IXK1FazgNhAQp@cluster0-qgjra.mongodb.net/cafe?retryWrites=true&w=majority';
+    urlDB = process.env.MONGO_URI;
+    //para ocultar la cadena de conexion a mongo atlas que contiene usuario y contraseña se utiliza la creacion de una variable de entorno
+    //en heroku del siguiente modo:
+    //  heroku config:set MONGO_URI = "mongodb+srv://user:password@cluster0-qgjra.mongodb.net/base_de_datos?retryWrites=true&w=majority"
+    //de este modo se puede utilizar aqui
 }
 process.env.URL_BASEDATOS = urlDB;
