@@ -47,7 +47,7 @@ app.get('/usuario', verificaToken, (req, res) => {
 app.post('/usuario', [verificaToken, validaAdminRole], (req, res) => {
     let body = req.body;
 
-    usuario = new Usuario({
+    let usuario = new Usuario({
         nombre: body.nombre,
         email: body.email,
         password: bcrypt.hashSync(body.password, 11), // el 2º parametro es el numero de iteraciones que se hace al hash
