@@ -13,7 +13,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 // Expiracion del token
 // ==========================
 // expira en 60s * 60m * 24h * 30 == 30 dias
-process.env.TOKEN_CADUCIDAD = 60 * 60 * 24 * 30;
+//process.env.TOKEN_CADUCIDAD = 60 * 60 * 24 * 30;
+process.env.TOKEN_CADUCIDAD = '30d';
 
 
 // ==========================
